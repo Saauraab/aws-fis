@@ -3,22 +3,23 @@ output "account_id" {
 }
 
 output "aws_subnets" {
-  description = "ID of project VPC"
-  value       = data.aws_subnets.public_subnets.ids
+  description = "It will return the subnet_id"
+  value       = data.aws_subnets.private_subnets.ids
 }
 
 
 output "aws_instances" {
-  description = "ID of project VPC"
-  value       = data.aws_instances.test.ids
+  description = "It will return the list of instances in a subnet"
+  value       = data.aws_instances.instances_list.ids
 }
 
 output "aws_instance_count" {
-  description = "ID of project VPC"
-  value       = length(data.aws_instances.test.ids)
+  description = "It will return the instance count"
+  value       = length(data.aws_instances.instances_list.ids)
 }
 
 output "instances_arn_list" {
+ description = "It will return the arn of the instances"
  value = data.aws_instance.instance_detail[*].arn
 }
 

@@ -5,6 +5,10 @@ locals {
      aws_account_id = data.aws_caller_identity.current.account_id
 }
 
+/*
+Resource aws_fis_experiment_template will invoke the stop action on all the ec2_instances in the subnet
+*/
+
 resource "aws_fis_experiment_template" "mqtt-experiment_template" {
   description = "Template created to stop the ec2_instance in a single AZ"
   role_arn    = aws_iam_role.fis_ec2_role.arn
@@ -14,22 +18,26 @@ resource "aws_fis_experiment_template" "mqtt-experiment_template" {
   }
 
    action {
-    name      = var.action_name
+    name      = var.ec2_action_name
     action_id = var.ec2_action_id
 
     target {
       key   = "Instances"
-      value = "Instances-Target-1"
+      value = var.target_name
     }
   }
 
   target {
-    name           = "Instances-Target-1"
+    name           = var.target_name
     resource_type  = var.ec2_resource_type
     selection_mode = "ALL"
     resource_arns = data.aws_instance.instance_detail[*].arn
   }
 }
+
+/*
+IAM role created to performt the stop operation on the ec2 instances
+*/
 
 resource "aws_iam_role" "fis_ec2_role" {
   name = "fis_ec2_role"
@@ -51,6 +59,9 @@ resource "aws_iam_role" "fis_ec2_role" {
   }
 }
 
+/*
+IAM policy will have the required permission to stop and start the instances
+*/
 resource "aws_iam_policy" "fis_iam_policy" {
   name = "fis_ec2_iam_policy"
   
@@ -72,6 +83,9 @@ resource "aws_iam_policy" "fis_iam_policy" {
 })
 }
 
+/*
+Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role
+*/
 resource "aws_iam_role_policy_attachment" "this" {
 
   role       = aws_iam_role.fis_ec2_role.name

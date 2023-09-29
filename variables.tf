@@ -23,7 +23,7 @@ variable "template_name" {
   type        = string
 }
 
-variable "action_name" {
+variable "ec2_action_name" {
   description = "Name of the action to be perfomed"
   type        = string
 }
