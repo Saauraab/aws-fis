@@ -22,3 +22,11 @@ output "instances_arn_list" {
  value = data.aws_instance.instance_detail[*].arn
 }
 
+#output "fis_ec2_role" {
+# value = data.aws_iam_role.fis_ec2_role.arn
+#}
+
+#output "fis_ec2_policy" {
+# value = data.aws_iam_policy.fis_iam_policy.name
+#}
+

@@ -7,13 +7,13 @@ locals {
 
 resource "aws_fis_experiment_template" "mqtt-experiment_template" {
   description = "Template created to stop the ec2_instance in a single AZ"
-  role_arn    = "arn:aws:iam::227622396901:role/service-role/AWSFISIAMRole-1695711430940"
+  role_arn    = aws_iam_role.fis_ec2_role.arn
 
   stop_condition {
     source = "none"
   }
 
-  action {
+   action {
     name      = var.action_name
     action_id = var.ec2_action_id
 
