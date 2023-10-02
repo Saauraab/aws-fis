@@ -9,7 +9,7 @@ locals {
 Resource aws_fis_experiment_template will invoke the stop action on all the ec2_instances in the subnet
 */
 
-resource "aws_fis_experiment_template" "mqtt-experiment_template" {
+resource "aws_fis_experiment_template" "mqtt-network-experiment_template" {
   description = "Template created to stop the ec2_instance in a single AZ"
   role_arn    = aws_iam_role.fis_network_role.arn
 

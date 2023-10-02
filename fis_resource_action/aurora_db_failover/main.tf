@@ -5,10 +5,9 @@ locals {
      aws_account_id = data.aws_caller_identity.current.account_id
 }
 
-/*
-Resource aws_fis_experiment_template will invoke the stop the writer instance of the db
-*/
-
+##############################################################################################
+## Resource aws_fis_experiment_template will invoke the stop the writer instance of the db ##
+##############################################################################################
 resource "aws_fis_experiment_template" "auroradb-experiment_template" {
   description = "Template created to perform the FIS on aurodb failover"
   role_arn    = aws_iam_role.fis_rds_role.arn
@@ -32,14 +31,13 @@ resource "aws_fis_experiment_template" "auroradb-experiment_template" {
     name           = var.target_name
     resource_type  = var.resource_type
     selection_mode = "ALL"
-    resource_arns = [data.aws_rds_cluster.aurora_db_cluser_arn.arn]
+    resource_arns = [data.aws_rds_cluster.aurora_db_cluser_detail.arn]
   }
 }
 
-/*
-IAM role created to performt the db failover operation on the aurora db instances instances
-*/
-
+##############################################################################################
+## IAM role created to performt the db failover operation on the aurora db instances instances##
+##############################################################################################
 resource "aws_iam_role" "fis_rds_role" {
   name = "fis_rds_failover_role"
   assume_role_policy = jsonencode({
@@ -60,9 +58,9 @@ resource "aws_iam_role" "fis_rds_role" {
   }
 }
 
-/*
-IAM policy will have the required permission to reboot the db writer instance
-*/
+##############################################################################################
+## IAM policy will have the required permission to reboot the db writer instance ##
+##############################################################################################
 resource "aws_iam_policy" "fis_rds_policy" {
   name = "fis_rds_failover_policy"
   
@@ -74,26 +72,22 @@ resource "aws_iam_policy" "fis_rds_policy" {
             "Action": [
                 "rds:FailoverDBCluster"
             ],
-            "Resource": [
-                "arn:aws:rds:*:*:cluster:*"
-            ]
+            "Resource": data.aws_rds_cluster.aurora_db_cluser_detail.arn
         },
         {
             "Effect": "Allow",
             "Action": [
                 "rds:RebootDBInstance"
             ],
-            "Resource": [
-                "arn:aws:rds:*:*:db:*"
-            ]
+            "Resource":  data.aws_db_instances.db_instance_arns.instance_arns
         }
     ]
 })
 }
 
-/*
-Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role
-*/
+##############################################################################################
+## Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role ##
+##############################################################################################
 resource "aws_iam_role_policy_attachment" "this" {
 
   role       = aws_iam_role.fis_rds_role.name

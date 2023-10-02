@@ -1,5 +1,5 @@
 #Variable for FIS action on MQTT
-name = "fis-mqtt"
+name = "fis-auroradb-failover"
 template_name = "fis-mqtt-experiment-template"
 private_subnet_name = "public_c"
 ec2_action_name = "network-disruption"

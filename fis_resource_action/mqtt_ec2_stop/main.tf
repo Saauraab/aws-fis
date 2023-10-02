@@ -5,10 +5,9 @@ locals {
      aws_account_id = data.aws_caller_identity.current.account_id
 }
 
-/*
-Resource aws_fis_experiment_template will invoke the stop action on all the ec2_instances in the subnet
-*/
-
+#############################################################################################################
+## Resource aws_fis_experiment_template will invoke the stop action on all the ec2_instances in the subnet ##
+#############################################################################################################
 resource "aws_fis_experiment_template" "mqtt-experiment_template" {
   description = "Template created to stop the ec2_instance in a single AZ"
   role_arn    = aws_iam_role.fis_ec2_role.arn
@@ -35,10 +34,9 @@ resource "aws_fis_experiment_template" "mqtt-experiment_template" {
   }
 }
 
-/*
-IAM role created to performt the stop operation on the ec2 instances
-*/
-
+#############################################################################################################
+## IAM role created to performt the stop operation on the ec2 instances ##
+#############################################################################################################
 resource "aws_iam_role" "fis_ec2_role" {
   name = "fis_ec2_role"
   assume_role_policy = jsonencode({
@@ -59,9 +57,9 @@ resource "aws_iam_role" "fis_ec2_role" {
   }
 }
 
-/*
-IAM policy will have the required permission to stop and start the instances
-*/
+#############################################################################################################
+## IAM policy will have the required permission to stop and start the instances ##
+#############################################################################################################
 resource "aws_iam_policy" "fis_iam_policy" {
   name = "fis_ec2_iam_policy"
   
@@ -83,9 +81,9 @@ resource "aws_iam_policy" "fis_iam_policy" {
 })
 }
 
-/*
-Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role
-*/
+#############################################################################################################
+## Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role ##
+#############################################################################################################
 resource "aws_iam_role_policy_attachment" "this" {
 
   role       = aws_iam_role.fis_ec2_role.name
