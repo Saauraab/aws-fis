@@ -75,7 +75,7 @@ resource "aws_iam_policy" "fis_iam_policy" {
                 "ec2:StartInstances",
                 "ec2:TerminateInstances"
             ],
-             Resource = "arn:aws:ec2:${var.aws_region}:${data.aws_caller_identity.current.account_id}:instance/*"
+             Resource = data.aws_instance.instance_detail[*].arn
         }
     ]
 })
