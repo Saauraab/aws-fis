@@ -22,17 +22,4 @@ data "aws_db_instances" "db_instance_arns" {
   }
 }
 
-#########################################################################################
-## fis_role_arn will return the arn of IAM role
-#########################################################################################
-data "aws_iam_role" "fis_role_arn" {
-  name = var.role_name
-}
-
-#########################################################################################
-## fis_role_policy will return the arn of IAM Policy role
-#########################################################################################
-data "aws_iam_policy" "fis_policy_arn" {
-  name = var.policy_name
-}
 
