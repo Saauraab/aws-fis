@@ -1,3 +1,7 @@
+######################################################################
+## output.tf will output the necessary resources arn and id
+######################################################################
+
 output "account_id" {
   value = data.aws_caller_identity.current.account_id
 }

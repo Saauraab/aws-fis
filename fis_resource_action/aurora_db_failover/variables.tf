@@ -1,6 +1,7 @@
-# Variables for providing to module fixture codes
+###################################################################
+## Variables to create auroradb FIS experiment template
+###################################################################
 
-### network
 variable "aws_region" {
   description = "The aws region to deploy"
   type        = string
@@ -9,12 +10,6 @@ variable "aws_region" {
 
 variable "name" {
   description = "The name of the resource"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "template_name" {
-  description = "Name of the experiment template"
   type        = string
 }
 
@@ -39,8 +34,31 @@ variable "action_id" {
   type        = string
 }
 
+variable "target_key" {
+  description = "Key for the target rds cluster on which the FIS will be performed"
+  type        = string
+}
+
+variable "selection_mode" {
+  description = "Name of the selection mode on which the FIS will be performed"
+  type        = string
+}
 
 variable "cluster_identifier" {
   description = "Name of the rds cluster on which the FIS will be performed"
+  type        = string
+}
+
+################################################################################
+## Variables to create IAM role and policy for AuroraDB FIS experiment template
+################################################################################
+
+variable "role_name" {
+  description = "The aws region to deploy"
+  type        = string
+}
+
+variable "policy_name" {
+  description = "The name of the resource"
   type        = string
 }

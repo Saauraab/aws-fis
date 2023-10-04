@@ -1,95 +1,29 @@
 # AWS Fault Injection Simulator
-data "aws_caller_identity" "current" {}
 
-locals {
-     aws_account_id = data.aws_caller_identity.current.account_id
+##############################################################################################
+## IAM role created to performt the db failover operation on the aurora db instances instances##
+##############################################################################################
+module "fis_rds_iam" {
+  source = "./modules/created_iam/"
+  role_name = var.role_name
+  policy_name = var.policy_name
+  rds_cluster_arn = data.aws_rds_cluster.aurora_db_cluser_detail.arn
+  rds_instances_arn = data.aws_db_instances.db_instance_arns.instance_arns
 }
 
 ##############################################################################################
 ## Resource aws_fis_experiment_template will invoke the stop the writer instance of the db ##
 ##############################################################################################
-resource "aws_fis_experiment_template" "auroradb-experiment_template" {
-  description = "Template created to perform the FIS on aurodb failover"
-  role_arn    = aws_iam_role.fis_rds_role.arn
-
-  stop_condition {
-    source = "none"
-  }
-
-   action {
-    name      = var.action_name
+module "auroradb-experiment_template" {
+    source = "./modules/fis_aurodb_failover/"
+    #iam_role_arn = data.aws_iam_role.fis_role_arn.arn
+    iam_role_arn = module.fis_rds_iam.fis_iamrole_arn
+    action_name = var.action_name
     action_id = var.action_id
-
-    target {
-      key   = "Clusters"
-      value = var.target_name
-    }
-    
-  }
-
-  target {
-    name           = var.target_name
+    target_key   = var.target_key
+    target_name = var.target_name
     resource_type  = var.resource_type
-    selection_mode = "ALL"
+    selection_mode = var.selection_mode
     resource_arns = [data.aws_rds_cluster.aurora_db_cluser_detail.arn]
-  }
-}
-
-##############################################################################################
-## IAM role created to performt the db failover operation on the aurora db instances instances##
-##############################################################################################
-resource "aws_iam_role" "fis_rds_role" {
-  name = "fis_rds_failover_role"
-  assume_role_policy = jsonencode({
-    "Version" = "2012-10-17",
-    "Statement" = [
-        {
-            "Effect": "Allow",
-            "Principal": {
-                "Service": "fis.amazonaws.com"
-            },
-            "Action": "sts:AssumeRole"
-        }
-    ]
-  })
-
-  tags = {
-    tag-key = "tag-value"
-  }
-}
-
-##############################################################################################
-## IAM policy will have the required permission to reboot the db writer instance ##
-##############################################################################################
-resource "aws_iam_policy" "fis_rds_policy" {
-  name = "fis_rds_failover_policy"
-  
-  policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "rds:FailoverDBCluster"
-            ],
-            "Resource": data.aws_rds_cluster.aurora_db_cluser_detail.arn
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "rds:RebootDBInstance"
-            ],
-            "Resource":  data.aws_db_instances.db_instance_arns.instance_arns
-        }
-    ]
-})
-}
-
-##############################################################################################
-## Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role ##
-##############################################################################################
-resource "aws_iam_role_policy_attachment" "this" {
-
-  role       = aws_iam_role.fis_rds_role.name
-  policy_arn = aws_iam_policy.fis_rds_policy.arn
+    cluster_identifier = var.cluster_identifier
 }

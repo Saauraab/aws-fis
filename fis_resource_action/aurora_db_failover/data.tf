@@ -5,6 +5,9 @@
 #########################################################################################
 ## aurora_db_cluser_arn will fetch the arn of the db cluster to perform the FIS acitivity
 #########################################################################################
+
+data "aws_caller_identity" "current" {}
+
 data "aws_rds_cluster" "aurora_db_cluser_detail" {
   cluster_identifier = var.cluster_identifier
 }
