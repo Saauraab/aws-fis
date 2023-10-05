@@ -62,3 +62,89 @@ variable "policy_name" {
   description = "The name of the resource"
   type        = string
 }
+
+################################################################################
+## Variables to create FIS experiment template to disrupt the network traffic
+################################################################################
+variable "subnet_action_name" {
+  description = "The name of the resource"
+  type        = string
+}
+variable "subnet_action_id" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "subnet_target_key" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "subnet_resource_type" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "subnet_selection_mode" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "duration" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "scope" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "subnet_resource_arns" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "instance_action_name" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "instance_action_id" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "instance_target_key" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "instance_target_name" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "instance_resource_type" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "instance_selection_mode" {
+  description = "The name of the resource"
+  type        = string
+}
+
+variable "subnet_target_name" {
+  description = "The name of the resource"
+  type        = string
+}
+
+
+variable "private_subnet_id" {
+  description = "The name of the resource"
+  type        = string
+}
+
+
+

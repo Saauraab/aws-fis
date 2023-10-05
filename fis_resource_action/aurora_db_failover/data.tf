@@ -22,4 +22,14 @@ data "aws_db_instances" "db_instance_arns" {
   }
 }
 
+#########################################################################################
+## subnet_arns will return the arn list of the db instances in a cluster
+#########################################################################################
+data "aws_subnet" "private_subnet" {
+  filter {
+    name   = "tag:Name"
+    values = [var.private_subnet_id]
+  }
+}
+
 
