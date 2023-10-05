@@ -100,11 +100,6 @@ variable "scope" {
   type        = string
 }
 
-variable "subnet_resource_arns" {
-  description = "The name of the resource"
-  type        = string
-}
-
 variable "instance_action_name" {
   description = "The name of the resource"
   type        = string

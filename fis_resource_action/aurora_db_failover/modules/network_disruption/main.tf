@@ -9,6 +9,16 @@ resource "aws_fis_experiment_template" "network-experiment_template" {
   action {
     name      = var.subnet_action_name
     action_id = var.subnet_action_id
+    
+    parameter {
+      key = "duration"
+      value = var.duration 
+    }
+    
+  parameter {
+      key = "scope"
+      value = var.scope
+    }
 
     target {
       key   = var.subnet_target_key
@@ -23,15 +33,6 @@ resource "aws_fis_experiment_template" "network-experiment_template" {
     target {
       key   = var.instance_target_key
       value = var.instance_target_name
-    }
-      parameter {
-      key = "duration"
-      value = var.duration 
-    }
-    
-  parameter {
-      key = "scope"
-      value = var.scope
     }
   }
 

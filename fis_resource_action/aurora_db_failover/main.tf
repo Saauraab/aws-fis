@@ -49,5 +49,5 @@ module "network-disrupt-experiment_template" {
   scope                 = var.scope
   subnet_target_name    = var.subnet_target_name
 
-  subnet_resource_arns = var.subnet_resource_arns
+  subnet_resource_arns = data.aws_subnet.private_subnet.arn
 }
