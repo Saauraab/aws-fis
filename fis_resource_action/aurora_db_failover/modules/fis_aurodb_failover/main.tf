@@ -29,4 +29,11 @@ resource "aws_fis_experiment_template" "auroradb-experiment_template" {
     selection_mode = var.selection_mode
     resource_arns = var.resource_arns
   }
+  log_configuration {
+        cloudwatch_logs_configuration {
+            log_group_arn = "arn:aws:logs:us-east-1:227622396901:log-group:fis_aurodb_failover_loggroup:*"
+        }
+        log_schema_version = 2
+    }
+
 }

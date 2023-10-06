@@ -51,3 +51,7 @@ module "network-disrupt-experiment_template" {
 
   subnet_resource_arns = data.aws_subnet.private_subnet.arn
 }
+
+resource "aws_cloudwatch_log_group" "fis_loggroup" {
+  name = "fis_aurodb_failover_loggroup"
+}
