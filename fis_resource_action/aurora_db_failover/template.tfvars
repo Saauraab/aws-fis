@@ -1,6 +1,5 @@
 #Variable for FIS action on AuroraDB
 name               = "fis-auroradb"
-template_name      = "fis-mqtt-experiment-template"
 action_name        = "db_terminate"
 target_name        = "Clusters-Target-1"
 resource_type      = "aws:rds:cluster"
@@ -20,7 +19,7 @@ subnet_resource_type  = "aws:ec2:subnet"
 subnet_selection_mode = "ALL"
 duration              = "PT10M"
 scope                 = "all"
-
+fis_loggroup_name     = "fis_loggroup"
 
 #Variable for FIS action on auroradb failover
 instance_action_name    = "db_terminate"
@@ -31,6 +30,5 @@ instance_resource_type  = "aws:rds:cluster"
 instance_selection_mode = "ALL"
 private_subnet_id       = "subnet-051b964aaa54d256a"
 subnet_target_name      = "Subnets-Target-2"
-#subnet_resource_arns   = "arn:aws:ec2:us-east-1:227622396901:subnet/subnet-021e94f37fb7fc672"
-#instance_resource_arns = "arn:aws:rds:us-east-1:227622396901:cluster:fisstackrdsaurora-fisworkshoprdsauroraee7bf768-qjnokg3dd1x3"
 
+retention_in_days = 7

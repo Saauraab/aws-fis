@@ -2,23 +2,10 @@
 ## Variables to create the auroradb FIS experiment template
 ############################################################
 
-variable "aws_region" {
-  description = "The aws region to deploy"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "name" {
-  description = "The name of the resource"
-  type        = string
-  default     = "us-east-1"
-}
-
 variable "action_name" {
   description = "Name of the action to be perfomed"
   type        = string
 }
-
 
 variable "target_name" {
   description = "Name of the target resource for FIS"
@@ -60,3 +47,9 @@ variable "resource_arns" {
   description = "Arns of the aurorodb instances"
   type        = list
 }
+
+variable "fis_log_group_arn" {
+  description = "Arns of the aurorodb instances"
+  type        = string
+}
+

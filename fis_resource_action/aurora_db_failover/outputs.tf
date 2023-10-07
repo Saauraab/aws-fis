@@ -1,5 +1,5 @@
 ######################################################################
-## output.tf will output the necessary resources arn and id
+## output.tf will provide the information for the FIS 
 ######################################################################
 
 output "account_id" {
@@ -20,4 +20,8 @@ output "aws_db_instance_arns" {
 
 output "aws_subnet_arns" {
   value = data.aws_subnet.private_subnet.arn
+}
+
+output "fis_role_arn" {
+  value = data.aws_iam_role.fis_role_arn.arn
 }

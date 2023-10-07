@@ -1,24 +1,8 @@
 # Variables for providing to module fixture codes
 
-### network
-variable "aws_region" {
-  description = "The aws region to deploy"
-  type        = string
-  default     = "us-east-1"
-}
-
-variable "name" {
-  description = "The name of the resource"
-  type        = string
-  default     = "us-east-1"
-}
-
-/*
-variable "private_subnet_name" {
-  description = "Name of the public subnets of the VPC"
-  type        = string
-}
-*/
+########################################################################
+### Variable required to deny the network traffic on a specific subnet
+########################################################################
 
 variable "subnet_action_name" {
   description = "Name of the experiment template"
@@ -33,26 +17,6 @@ variable "subnet_action_id" {
 
 variable "subnet_target_key" {
   description = "Name of the target resource for FIS"
-  type        = string
-}
-
-variable "instance_action_name" {
-  description = "ID of the the FIS ec2 action"
-  type        = string
-}
-
-variable "instance_action_id" {
-  description = "ID of the the FIS ec2 action"
-  type        = string
-}
-
-variable "instance_target_key" {
-  description = "ID of the the FIS ec2 action"
-  type        = string
-}
-
-variable "instance_target_name" {
-  description = "ID of the the FIS ec2 action"
   type        = string
 }
 
@@ -71,21 +35,6 @@ variable "subnet_selection_mode" {
   type        = string
 }
 
-variable "instance_resource_type" {
-  description = "ID of the the FIS ec2 action"
-  type        = string
-}
-
-variable "instance_selection_mode" {
-  description = "ID of the the FIS ec2 action"
-  type        = string
-}
-
-variable "instance_resource_arns" {
-  description = "ID of the the FIS ec2 action"
-  type        = string
-}
-
 variable "duration" {
   description = "The name of the resource"
   type        = string
@@ -100,3 +49,55 @@ variable "subnet_target_name" {
   description = "The name of the resource"
   type        = string
 }
+
+########################################################################
+### Variable required to perform the aurora db failover
+########################################################################
+
+variable "instance_action_name" {
+  description = "Name of the action to be performed for the aurora db failover"
+  type        = string
+}
+
+variable "instance_action_id" {
+  description = "Id of the action for the auroradb failover"
+  type        = string
+}
+
+variable "instance_target_key" {
+  description = "target key for the auroradb failover"
+  type        = string
+}
+
+variable "instance_target_name" {
+  description = "target name for the auroradb failover"
+  type        = string
+}
+
+variable "instance_resource_type" {
+  description = "instance resource type for the auroradb failover"
+  type        = string
+}
+
+variable "instance_selection_mode" {
+  description = "selection mode of the action"
+  type        = string
+}
+
+variable "instance_resource_arns" {
+  description = "Return the db instances role arn"
+  type        = string
+}
+
+## Variables required to fetch the fis role and loggroup arn
+
+variable "fis_role_arn" {
+  description = "Return the fis role arn"
+  type        = string
+}
+
+variable "fis_log_group_arn" {
+  description = "Return the cloudwatch log group role arn"
+  type        = string
+}
+

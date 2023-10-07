@@ -25,6 +25,7 @@ module "auroradb-experiment_template" {
   selection_mode     = var.selection_mode
   resource_arns      = [data.aws_rds_cluster.aurora_db_cluser_detail.arn]
   cluster_identifier = var.cluster_identifier
+  fis_log_group_arn  = "${module.cloudwatch_loggroup.fis_loggroup_arn}:*"
 }
 
 ##############################################################################################
@@ -50,8 +51,16 @@ module "network-disrupt-experiment_template" {
   subnet_target_name    = var.subnet_target_name
 
   subnet_resource_arns = data.aws_subnet.private_subnet.arn
+  fis_role_arn         = data.aws_iam_role.fis_role_arn.arn
+  fis_log_group_arn    = "${module.cloudwatch_loggroup.fis_loggroup_arn}:*"
+
 }
 
-resource "aws_cloudwatch_log_group" "fis_loggroup" {
-  name = "fis_aurodb_failover_loggroup"
+##############################################################################################
+## Resource aws_fis_experiment_template will disrupt the network traffic ##
+##############################################################################################
+module "cloudwatch_loggroup" {
+  source            = "./modules/cloudwatch_log_group/"
+  fis_loggroup_name = var.fis_loggroup_name
+  retention_in_days = var.retention_in_days
 }

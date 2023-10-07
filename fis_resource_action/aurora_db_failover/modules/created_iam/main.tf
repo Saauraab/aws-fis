@@ -57,3 +57,4 @@ resource "aws_iam_role_policy_attachment" "this" {
   role       = aws_iam_role.fis_rds_role.name
   policy_arn = aws_iam_policy.fis_rds_policy.arn
 }
+ 

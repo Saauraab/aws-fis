@@ -27,10 +27,14 @@ data "aws_db_instances" "db_instance_arns" {
 #########################################################################################
 data "aws_subnet" "private_subnet" {
   id = var.private_subnet_id
-  /*filter {
-    name   = "tag:Name"
-    values = [var.private_subnet_id]
-  }*/
 }
+
+#########################################################################################
+## fis_role_arn will return the arn of AWS FIS IAM Role
+#########################################################################################
+data "aws_iam_role" "fis_role_arn" {
+  name = "AWSServiceRoleForFIS"
+}
+
 
 
