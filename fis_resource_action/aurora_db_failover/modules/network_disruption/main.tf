@@ -6,7 +6,7 @@
 ##############################################################################################
 
 resource "aws_fis_experiment_template" "network-experiment_template" {
-  description = "Template created to stop the ec2_instance in a single AZ"
+  description = "Template created for the network outage on the auroradb cluster subnet"
   role_arn    = var.fis_role_arn
 
   stop_condition {

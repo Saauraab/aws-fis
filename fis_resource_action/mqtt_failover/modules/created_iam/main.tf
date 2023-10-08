@@ -48,7 +48,7 @@ resource "aws_iam_policy" "fis_mqtt_iam_policy" {
 }
 
 resource "aws_iam_policy" "fis_mqtt_cloudwatch_policy" {
-  name = "fis_cloudwatch_policy"
+  name = "fis-mqtt-cloudwatch-policy"
   policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [
@@ -85,12 +85,12 @@ resource "aws_iam_policy" "fis_mqtt_cloudwatch_policy" {
 }
 */
 
-resource "aws_iam_role_policy_attachment" "attach_policy1" {
+resource "aws_iam_role_policy_attachment" "attach_mqtt_policy" {
   role       = aws_iam_role.fis_mqtt_iam_role.name
   policy_arn = aws_iam_policy.fis_mqtt_iam_policy.arn
 }
 
-resource "aws_iam_role_policy_attachment" "attach_policy2" {
+resource "aws_iam_role_policy_attachment" "attach_cloudlog_policy" {
   role       = aws_iam_role.fis_mqtt_iam_role.name
   policy_arn = aws_iam_policy.fis_mqtt_cloudwatch_policy.arn
 }

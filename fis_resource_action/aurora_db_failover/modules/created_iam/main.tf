@@ -50,11 +50,42 @@ resource "aws_iam_policy" "fis_rds_policy" {
 })
 }
 
+
+resource "aws_iam_policy" "fis_cloudwatch_policy" {
+  name = "fis-rds-cloudwatch-policy"
+  policy = jsonencode({
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogDelivery"
+            ],
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "logs:PutResourcePolicy",
+                "logs:DescribeResourcePolicies",
+                "logs:DescribeLogGroups"
+            ],
+            "Resource": var.rds_instances_arn
+        }
+    ]
+  })
+}
+
 ##############################################################################################
 ## Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role ##
 ##############################################################################################
-resource "aws_iam_role_policy_attachment" "this" {
+resource "aws_iam_role_policy_attachment" "attach_mqtt_policy" {
   role       = aws_iam_role.fis_rds_role.name
   policy_arn = aws_iam_policy.fis_rds_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "attach_cloudlog_policy" {
+  role       = aws_iam_role.fis_rds_role.name
+  policy_arn = aws_iam_policy.fis_cloudwatch_policy.arn
 }
  

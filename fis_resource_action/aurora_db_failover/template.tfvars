@@ -8,8 +8,6 @@ aws_region         = "us-east-1"
 cluster_identifier = "fisstackrdsaurora-fisworkshoprdsauroraee7bf768-qjnokg3dd1x3"
 target_key         = "Clusters"
 selection_mode     = "ALL"
-role_name          = "fis_rds_failover_role"
-policy_name        = "fis_rds_failover_policy"
 
 #Variable for FIS action on network outage
 subnet_action_name    = "subnet_down"
@@ -19,7 +17,6 @@ subnet_resource_type  = "aws:ec2:subnet"
 subnet_selection_mode = "ALL"
 duration              = "PT10M"
 scope                 = "all"
-fis_loggroup_name     = "fis_loggroup"
 
 #Variable for FIS action on auroradb failover
 instance_action_name    = "db_terminate"
@@ -31,4 +28,7 @@ instance_selection_mode = "ALL"
 private_subnet_id       = "subnet-051b964aaa54d256a"
 subnet_target_name      = "Subnets-Target-2"
 
+role_name          = "fis-rds-failover-role"
+policy_name        = "fis-rds-failover-policy"
+fis_loggroup_name  = "fis-loggroup"
 retention_in_days = 7
