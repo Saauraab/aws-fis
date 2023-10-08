@@ -41,8 +41,8 @@ data "aws_instances" "instances_list" {
 ## data ws_instance will return the instance detail
 ###############################################################################
 data "aws_instance" "instance_detail" {
-  count = length(data.aws_instances.instances_list.ids) 
-  instance_id = data.aws_instances.instances_list.ids[count.index] 
+  count       = length(data.aws_instances.instances_list.ids)
+  instance_id = data.aws_instances.instances_list.ids[count.index]
 }
 
 

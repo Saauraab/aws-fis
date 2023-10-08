@@ -4,9 +4,9 @@
 ## IAM role created to performt the db failover operation on the aurora db instances instances##
 ##############################################################################################
 module "fis_mqtt_iam" {
-  source            = "./modules/created_iam/"
-  role_name         = var.role_name
-  policy_name       = var.policy_name
+  source               = "./modules/created_iam/"
+  role_name            = var.role_name
+  policy_name          = var.policy_name
   subnet_instances_arn = data.aws_instance.instance_detail[*].arn
 }
 
@@ -14,16 +14,16 @@ module "fis_mqtt_iam" {
 ## Resource aws_fis_experiment_template will invoke the stop the writer instance of the db ##
 ##############################################################################################
 module "mqtt_ec2_template" {
-  source             = "./modules/fis_ec2_failover/"
-  iam_role_arn       = module.fis_mqtt_iam.fis_iamrole_arn
-  action_name        = var.action_name
-  action_id          = var.action_id
-  target_key         = var.target_key
-  target_name        = var.target_name
-  resource_type      = var.resource_type
-  selection_mode     = var.selection_mode
-  resource_arns      = data.aws_instance.instance_detail[*].arn
-  fis_log_group_arn  = "${module.cloudwatch_loggroup.fis_loggroup_arn}:*"
+  source            = "./modules/fis_ec2_failover/"
+  iam_role_arn      = module.fis_mqtt_iam.fis_iamrole_arn
+  action_name       = var.action_name
+  action_id         = var.action_id
+  target_key        = var.target_key
+  target_name       = var.target_name
+  resource_type     = var.resource_type
+  selection_mode    = var.selection_mode
+  resource_arns     = data.aws_instance.instance_detail[*].arn
+  fis_log_group_arn = "${module.cloudwatch_loggroup.fis_loggroup_arn}:*"
 }
 
 ##############################################################################################

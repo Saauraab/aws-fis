@@ -17,6 +17,6 @@ output "aws_instance_count" {
 }
 
 output "instances_arn_list" {
- description = "It will return the arn of the instances"
- value = data.aws_instance.instance_detail[*].arn
+  description = "It will return the arn of the instances"
+  value       = data.aws_instance.instance_detail[*].arn
 }

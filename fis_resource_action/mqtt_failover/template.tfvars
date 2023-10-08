@@ -1,14 +1,14 @@
 #Variable for FIS action on MQTT
-name               = "fis-mqtt"
-aws_region         = "us-east-1"
-action_name        = "stop-ec2-action"
-target_name        = "Instances-Target-1"
-resource_type      = "aws:ec2:instance"
-action_id          = "aws:ec2:stop-instances"
-target_key         = "Instances"
-selection_mode     = "ALL"
-role_name          = "fis_mqtt_failover_role"
-policy_name        = "fis_mqtt_failover_policy"
+name           = "fis-mqtt"
+aws_region     = "us-east-1"
+action_name    = "stop-ec2-action"
+target_name    = "Instances-Target-1"
+resource_type  = "aws:ec2:instance"
+action_id      = "aws:ec2:stop-instances"
+target_key     = "Instances"
+selection_mode = "ALL"
+role_name      = "fis_mqtt_failover_role"
+policy_name    = "fis_mqtt_failover_policy"
 
 #Variable for FIS action on network outage
 subnet_action_name    = "subnet_down"
@@ -32,5 +32,5 @@ subnet_target_name      = "Subnets-Target-2"
 retention_in_days = 7
 
 #Variable for FIS action on MQTT
-private_subnet_name       = "public_c"
-private_subnet_id         = "subnet-021e94f37fb7fc672"
+private_subnet_name = "public_c"
+private_subnet_id   = "subnet-021e94f37fb7fc672"
