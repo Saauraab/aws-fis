@@ -1,8 +1,10 @@
 #Variable for FIS action on MQTT
 name                = "fis-mqtt"
 aws_region          = "us-east-1"
-action_name         = "stop-ec2-action"
+action_name         = "terminate-ec2-action"
 target_name         = "Instances-Target-1"
+
+#Variables for FIS action on ec2 terminate for a terminate_ec2_template
 resource_type       = "aws:ec2:instance"
 action_id           = "aws:ec2:stop-instances"
 target_key          = "Instances"
@@ -11,7 +13,7 @@ role_name           = "fis_mqtt_role"
 policy_name         = "fis_ec2_simulator_policy"
 network_policy_name = "fis_network_simulator_policy"
 
-#Variable for FIS action on network outage
+#Variable for FIS simulation for a network outage 
 subnet_action_name    = "subnet_down"
 subnet_action_id      = "aws:network:disrupt-connectivity"
 subnet_target_key     = "Subnets"
@@ -22,8 +24,8 @@ duration              = "PT10M"
 scope                 = "all"
 fis_loggroup_name     = "fis_loggroup"
 
-#Variable for FIS action on subnet failover
-instance_action_name    = "stop-ec2-action"
+#Variables for FIS action on ec2 terminate for the mqtt-fis-experiment-template
+instance_action_name    = "terminate-ec2-action"
 instance_action_id      = "aws:ec2:stop-instances"
 instance_target_key     = "Instances"
 instance_target_name    = "Instances-Target-1"

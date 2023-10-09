@@ -3,8 +3,8 @@
 ##############################################################################################
 ## Resource aws_fis_experiment_template will invoke the stop the writer instance of the db ##
 ##############################################################################################
-resource "aws_fis_experiment_template" "mqtt-stop_ec2_experiment_template" {
-  description = "Template created to perform the FIS on MQTT"
+resource "aws_fis_experiment_template" "mqtt-ec2-experiment-template" {
+  description = "Template created to stop the ec2_instance in a single AZ"
   role_arn    = var.iam_role_arn
   stop_condition {
     source = "none"

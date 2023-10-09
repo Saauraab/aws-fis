@@ -5,8 +5,8 @@
 ## It will deny the traffic to the subnet defined for a specific time
 ##############################################################################################
 
-resource "aws_fis_experiment_template" "mqtt_network-experiment_template" {
-  description = "Template created to stop the ec2_instance in a single AZ"
+resource "aws_fis_experiment_template" "mqtt-fis-experiment-template" {
+  description = "FIS experiment template to disrupt the network and terminate ec2 instances"
   role_arn    = var.fis_role_arn
 
   stop_condition {
