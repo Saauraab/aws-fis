@@ -1,5 +1,5 @@
 ###################################################################
-## Variables to create auroradb FIS experiment template
+## Variables to create MQTT FIS experiment template
 ###################################################################
 
 variable "aws_region" {
@@ -23,21 +23,26 @@ variable "private_subnet_id" {
   type        = string
 }
 ################################################################################
-## Variables to create IAM role and policy for AuroraDB FIS experiment template
+## Variables to create IAM role and policy for MQTT FIS experiment template
 ################################################################################
 
 variable "role_name" {
-  description = "The role name for auroradb"
+  description = "The role name for MQTT"
   type        = string
 }
 
 variable "policy_name" {
-  description = "The policy of the aurora db failover"
+  description = "The policy of the MQTT ec2 terminate"
+  type        = string
+}
+
+variable "network_policy_name" {
+  description = "The name of the network simulator policy"
   type        = string
 }
 
 ################################################################################
-## Variables to create auroradb failover for AuroraDB FIS experiment template
+## Variables to create MQTT failover for MQTT FIS experiment template
 ################################################################################
 
 variable "action_name" {
@@ -151,7 +156,7 @@ variable "instance_selection_mode" {
 
 
 ###################################################################
-## Variables to create auroradb FIS experiment template
+## Variables to create MQTT FIS experiment template
 ###################################################################
 
 

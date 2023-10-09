@@ -4,17 +4,22 @@
 ######################################################################
 
 variable "role_name" {
-  description = "The aws region to deploy"
+  description = "AWS role to perform FIS"
   type        = string
 }
 
 variable "policy_name" {
-  description = "The name of the resource"
+  description = "Ec2 simulator policy"
   type        = string
 }
 
 
 variable "subnet_instances_arn" {
-  description = "The name of the resource"
+  description = "Arn of the subnet instances"
   type        = list
+}
+
+variable "network_policy_name" {
+  description = "The name of the network simulator policy"
+  type        = string
 }
