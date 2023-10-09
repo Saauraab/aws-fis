@@ -7,6 +7,7 @@ module "fis_rds_iam" {
   source            = "./modules/created_iam/"
   role_name         = var.role_name
   policy_name       = var.policy_name
+  network_policy_name  = var.network_policy_name
   rds_cluster_arn   = data.aws_rds_cluster.aurora_db_cluser_detail.arn
   rds_instances_arn = data.aws_db_instances.db_instance_arns.instance_arns
 }

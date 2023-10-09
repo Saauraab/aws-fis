@@ -4,21 +4,26 @@
 ######################################################################
 
 variable "role_name" {
-  description = "The aws region to deploy"
+  description = "The name of the role"
   type        = string
 }
 
 variable "policy_name" {
-  description = "The name of the resource"
+  description = "The name of the policy"
   type        = string
 }
 
 variable "rds_cluster_arn" {
-  description = "The name of the resource"
+  description = "The arn of the rds cluster"
   type        = string
 }
 
 variable "rds_instances_arn" {
-  description = "The name of the resource"
+  description = "The arn of the resource"
   type        = list
+}
+
+variable "network_policy_name" {
+  description = "The name of the network simulator policy"
+  type        = string
 }

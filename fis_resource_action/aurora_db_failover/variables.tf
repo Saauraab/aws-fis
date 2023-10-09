@@ -38,6 +38,10 @@ variable "policy_name" {
   type        = string
 }
 
+variable "network_policy_name" {
+  description = "The name of the network simulator policy"
+  type        = string
+}
 ################################################################################
 ## Variables to create auroradb failover for AuroraDB FIS experiment template
 ################################################################################

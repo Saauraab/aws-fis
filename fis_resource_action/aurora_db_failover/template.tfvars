@@ -28,6 +28,7 @@ instance_selection_mode = "ALL"
 private_subnet_id       = "subnet-051b964aaa54d256a"
 subnet_target_name      = "Subnets-Target-2"
 
+network_policy_name = "fis_rds_network_simulator_policy"
 role_name          = "fis-rds-failover-role"
 policy_name        = "fis-rds-failover-policy"
 fis_loggroup_name  = "fis-loggroup"
