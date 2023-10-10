@@ -53,7 +53,7 @@ resource "aws_iam_policy" "fis_rds_policy" {
 
 
 ##############################################################################################
-## IAM policy will have the required permission to for the network disruption  ##
+## IAM policy will have the required permission for the network disruption  ##
 ##############################################################################################
 resource "aws_iam_policy" "fis_rds_network_policy" {
   name = var.network_policy_name

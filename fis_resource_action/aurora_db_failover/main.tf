@@ -52,7 +52,7 @@ module "network-disrupt-experiment_template" {
   subnet_target_name    = var.subnet_target_name
 
   subnet_resource_arns = data.aws_subnet.private_subnet.arn
-  fis_role_arn         = data.aws_iam_role.fis_role_arn.arn
+  fis_role_arn         = module.fis_rds_iam.fis_iamrole_arn
   fis_log_group_arn    = "${module.cloudwatch_loggroup.fis_loggroup_arn}:*"
 
 }
