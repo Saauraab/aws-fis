@@ -135,7 +135,7 @@ resource "aws_iam_policy" "fis_rds_network_policy" {
 ##############################################################################################
 
 resource "aws_iam_policy" "fis_cloudwatch_policy" {
-  name = "fis-rds-cloudwatch-policy"
+  name = "fis-rds-cloudwatch-policy-test"
   policy = jsonencode({
     "Version": "2012-10-17",
     "Statement": [

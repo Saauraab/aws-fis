@@ -4,7 +4,7 @@
 ## IAM role created to performt the db failover operation on the aurora db instances instances##
 ##############################################################################################
 module "fis_rds_iam" {
-  source            = "./modules/created_iam/"
+  source            = "./modules/created-iam/"
   role_name         = var.role_name
   policy_name       = var.policy_name
   network_policy_name  = var.network_policy_name
@@ -16,7 +16,7 @@ module "fis_rds_iam" {
 ## Resource aws_fis_experiment_template will invoke the stop the writer instance of the db ##
 ##############################################################################################
 module "auroradb-experiment_template" {
-  source             = "./modules/fis_aurodb_failover/"
+  source             = "./modules/fis-aurodb-failover/"
   iam_role_arn       = module.fis_rds_iam.fis_iamrole_arn
   action_name        = var.action_name
   action_id          = var.action_id
@@ -33,7 +33,7 @@ module "auroradb-experiment_template" {
 ## Resource aws_fis_experiment_template will disrupt the network traffic ##
 ##############################################################################################
 module "network-disrupt-experiment_template" {
-  source                  = "./modules/network_disruption/"
+  source                  = "./modules/network-disruption/"
   instance_action_name    = var.instance_action_name
   instance_action_id      = var.instance_action_id
   instance_target_key     = var.instance_target_key
@@ -61,7 +61,7 @@ module "network-disrupt-experiment_template" {
 ## Resource aws_fis_experiment_template will disrupt the network traffic ##
 ##############################################################################################
 module "cloudwatch_loggroup" {
-  source            = "./modules/cloudwatch_log_group/"
+  source            = "./modules/cloudwatch-log-group/"
   fis_loggroup_name = var.fis_loggroup_name
   retention_in_days = var.retention_in_days
 }

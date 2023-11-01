@@ -33,4 +33,7 @@ resource "aws_fis_experiment_template" "auroradb-experiment_template" {
         }
         log_schema_version = 2
     }
+  tags = {
+    Name = "fis-auroradb-test"
+  }
 }
