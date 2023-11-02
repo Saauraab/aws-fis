@@ -1,7 +1,7 @@
-######################################################################
-## Variables to create IAM role and policy for FIS experiment template
+##########################################################################
+## Variables to create IAM role and policy for ssm document for az removal
 ### IAM
-######################################################################
+#########################################################################
 
 variable "role_name" {
   description = "The name of the role"

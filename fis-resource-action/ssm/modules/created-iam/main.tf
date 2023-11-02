@@ -24,7 +24,7 @@ resource "aws_iam_role" "ssm_policy" {
 
 
 ##############################################################################################
-## IAM policy will have the required permission to write the cloudwatch log for fis-loggroup ##
+## IAM policy will have the required permission to run the ssm document ##
 ##############################################################################################
 
 resource "aws_iam_policy" "fis_ssm_policy" {
@@ -52,10 +52,10 @@ resource "aws_iam_policy" "fis_ssm_policy" {
 }
 
 ##############################################################################################
-## Resource aws_iam_role_policy_attachment created to attach the fis_iam_policy to IAM role ##
+## Resource aws_iam_role_policy_attachment created to attach the ssm policy to IAM role ##
 ##############################################################################################
 
-resource "aws_iam_role_policy_attachment" "this" {
+resource "aws_iam_role_policy_attachment" "ssm-attach-policy" {
    role       = aws_iam_role.ssm_policy.name
    policy_arn = aws_iam_policy.fis_ssm_policy.arn
 }

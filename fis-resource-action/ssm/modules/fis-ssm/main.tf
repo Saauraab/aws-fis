@@ -1,3 +1,8 @@
+################################################################################
+#ssm document created for the terminating the ec2 instances in a specified az
+#It will also remove the az from the specified asg for the particular durantion
+################################################################################
+
 resource "aws_ssm_document" "foo" {
   name            = var.name
   document_format = "YAML"
