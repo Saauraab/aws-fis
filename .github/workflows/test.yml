@@ -1,35 +1,82 @@
-# This is a basic workflow to help you get started with Actions
-
-name: Connect to an AWS role from a GitHub repository
-
-# Controls when the workflow will run
+name: "Deploy Terraform Code for FIS environment"
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches: ["main"]
+    paths:
+      - "terraform/**"
+      - ".github/workflows/terraform-deploy.yml"
 env:
-  AWS_REGION : us-east-1 #Change to reflect your Region
-  # Permission can be added at job level or workflow level
-permissions:
-        id-token: write   # This is required for requesting the JWT
-        contents: read    # This is required for actions/checkout
+  NON_PROD_ENVIRONMENT: "NonProd"
+  PROD_ENVIORNMENT: "Prod"
+  # TF_STATE_BUCKET_NAME: ${{ vars.TF_BUCKET_NAME }}
+  TF_STATE_BUCKET_NAME: "aws3-non-prod-state-bucket"
+  # TF_DYNAMODB_TABLE: ${{ vars.TF_DDB_NAME }}
+  TF_DYNAMODB_TABLE: "aws3-non-prod-state-lock"
+  REGION: "eu-west-2"
 jobs:
-  AssumeRoleAndCallIdentity:
+  CodeScanning:
     runs-on: ubuntu-latest
     steps:
-      - name: Git clone the repository
+      - name: Clone the Repository
         uses: actions/checkout@v3
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1.7.0
+      - name: Test with Checkov
+        id: checkov
+        uses: bridgecrewio/checkov-action@master
         with:
-          role-to-assume: arn:aws:iam::227622396901:role/github-oidc-assume-role #change to reflect your IAM role’s ARN
+          directory: terraform
+          framework: terraform
+  TerraformConfig:
+    name: "TerraformConfig"
+    needs: CodeScanning
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
+    # Setup the current working directory
+    defaults:
+      run:
+        working-directory: ${{github.workspace}}/terraform/stacks/non-production
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Clone The Repository
+        uses: actions/checkout@v3
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@master
+        with:
+          role-to-assume: "arn:aws:iam::227622396901:role/github-oidc-assume-role"
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
-          aws-region: ${{ env.AWS_REGION }}
-        # Hello from AWS: WhoAmI
+          aws-region: "eu-west-2"
       - name: Sts GetCallerIdentity
         run: |
           aws sts get-caller-identity
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          cli_config_credentials_token: ${{secrets.TF_API_TOKEN}}
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terraform Init
+        run: |
+          terraform init \
+          -backend-config "bucket=$TF_STATE_BUCKET_NAME" \
+          -backend-config "region=$REGION" \
+          -backend-config "key=$NON_PROD_ENVIRONMENT" \
+          -backend-config "dynamodb_table=$TF_DYNAMODB_TABLE" \
+          -backend-config "encrypt=true"
+        # terraform init
+      # Checks that all Terraform configuration files adhere to a canonical format
+      - name: Terraform Format
+        continue-on-error: true
+        run: terraform fmt -check
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        run: terraform plan -input=false --out=tfplan
+        # On push to "master", build or change infrastructure according to Terraform configuration files
+        # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+      - name: Terraform Apply
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: terraform apply -auto-approve -input=false tfplan
