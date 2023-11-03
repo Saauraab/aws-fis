@@ -5,6 +5,7 @@ on:
     paths:
       - "terraform/**"
       - ".github/workflows/test1.yml"
+      
 env:
   NON_PROD_ENVIRONMENT: "NonProd"
   PROD_ENVIORNMENT: "Prod"
