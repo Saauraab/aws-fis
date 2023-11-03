@@ -1,7 +1,7 @@
 name: "Deploy Terraform Code for FIS environment"
 on:
   push:
-    branches: ["main", "feature/**"]
+    branches: ["main"]
     paths:
       - "terraform/**"
       - ".github/workflows/terraform-deploy.yml"
@@ -43,7 +43,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@master
         with:
-          role-to-assume: "arn:aws:iam::091635179671:role/AssumeRoleWithAction"
+          role-to-assume: "arn:aws:iam::227622396901:role/github-oidc-assume-role"
           role-session-name: GitHub_to_AWS_via_FederatedOIDC
           aws-region: "eu-west-2"
       - name: Sts GetCallerIdentity
