@@ -5,7 +5,6 @@
 region = "eu-west-1"
 role_name = "fis-ssm-role"
 policy_name = "fis-ssm-policy"
-name = "fis-ssm-az-removal-document"
 
 ##################################################################
 ### Variables created for the user input to run the ssm document
