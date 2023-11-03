@@ -11,7 +11,7 @@ env:
   # TF_STATE_BUCKET_NAME: ${{ vars.TF_BUCKET_NAME }}
   #TF_STATE_BUCKET_NAME: "aws3-non-prod-state-bucket"
   # TF_DYNAMODB_TABLE: ${{ vars.TF_DDB_NAME }}
-  TF_DYNAMODB_TABLE: "aws3-non-prod-state-lock"
+  #TF_DYNAMODB_TABLE: "aws3-non-prod-state-lock"
   REGION: "eu-west-2"
 jobs:
   CodeScanning:
@@ -65,7 +65,7 @@ jobs:
           #-backend-config "bucket=$TF_STATE_BUCKET_NAME" \
           -backend-config "region=$REGION" \
           -backend-config "key=$NON_PROD_ENVIRONMENT" \
-          -backend-config "dynamodb_table=$TF_DYNAMODB_TABLE" \
+          #-backend-config "dynamodb_table=$TF_DYNAMODB_TABLE" \
           -backend-config "encrypt=true"
         # terraform init
       # Checks that all Terraform configuration files adhere to a canonical format
