@@ -4,7 +4,7 @@ on:
     branches: ["main"]
     paths:
       - "terraform/**"
-      - ".github/workflows/test1.yml"
+      - ".github/workflows/fis-action.yml"
       
 env:
   NON_PROD_ENVIRONMENT: "NonProd"
