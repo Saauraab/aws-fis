@@ -13,7 +13,7 @@ env:
   #TF_STATE_BUCKET_NAME: "aws3-non-prod-state-bucket"
   # TF_DYNAMODB_TABLE: ${{ vars.TF_DDB_NAME }}
   #TF_DYNAMODB_TABLE: "aws3-non-prod-state-lock"
-  REGION: "eu-west-2"
+  REGION: "eu-west-1"
 jobs:
   CodeScanning:
     runs-on: ubuntu-latest
