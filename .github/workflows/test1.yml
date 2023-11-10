@@ -1,4 +1,4 @@
-name: "Deploy Terraform Code for FIS environment"
+name: "Deploy ssm document"
 on:
   push:
     branches: ["main"]
