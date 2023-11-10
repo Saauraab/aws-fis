@@ -36,7 +36,7 @@ jobs:
     # Setup the current working directory
     defaults:
       run:
-        working-directory: ${{github.workspace}}/fis-resource-action/ssm
+        working-directory: ${{github.workspace}}/fis-resource-action/aurora-db-failover
     steps:
       # Checkout the repository to the GitHub Actions runner
       - name: Clone The Repository
