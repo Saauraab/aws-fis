@@ -1,4 +1,4 @@
-name: "Deploy Terraform Code for FIS environment"
+name: "Deploy fis action"
 on:
   push:
     branches: ["main"]
