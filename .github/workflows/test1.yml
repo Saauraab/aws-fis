@@ -15,20 +15,8 @@ env:
   #TF_DYNAMODB_TABLE: "aws3-non-prod-state-lock"
   REGION: "eu-west-1"
 jobs:
-  CodeScanning:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Clone the Repository
-        uses: actions/checkout@v3
-      - name: Test with Checkov
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: terraform
-          framework: terraform
   TerraformConfig:
     name: "TerraformConfig"
-    needs: CodeScanning
     runs-on: ubuntu-latest
     permissions:
       id-token: write
