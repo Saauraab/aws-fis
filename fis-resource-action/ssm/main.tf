@@ -15,3 +15,4 @@ module "fis_ssm" {
   duration          = var.duration
   name              = var.name
 }
+
